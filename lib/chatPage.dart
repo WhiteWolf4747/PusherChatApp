@@ -47,14 +47,13 @@ Future<void> intitiatepusher() async{
           apiKey: "accd6364089f3fa5e749",
           cluster: "mt1",
           onEvent: ((event) {
-            print("onEvent: $event");
+            
             setState(() {
               ChatHistory.add(jsonDecode(event.data));
             });
           }),
 
-          // authEndpoint: "<Your Authendpoint>",
-          // onAuthorizer: onAuthorizer
+         
         );
         final PubChannel = await pusher.subscribe(channelName: 'my-channel');
         await pusher.connect();
