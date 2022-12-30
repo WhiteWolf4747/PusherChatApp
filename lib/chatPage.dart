@@ -41,6 +41,7 @@ void initState() {
 
 Future<void> intitiatepusher() async{
   PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
+      //connect to pusher
       try {
         await pusher.init(
           apiKey: "accd6364089f3fa5e749",
@@ -63,7 +64,7 @@ Future<void> intitiatepusher() async{
       
 }
   
-
+//send message
 Future SendMessage(String message) async {
 
   final uri = Uri.parse('https://candidate.yewubetsalone.com/api/send-message');
@@ -102,6 +103,7 @@ Future SendMessage(String message) async {
                 return Container();
             })),
           ),
+          //bottom sending bar
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -193,171 +195,5 @@ InputDecoration input = const InputDecoration(
             width: 1.6),
         borderRadius: BorderRadius.all(
             Radius.circular(40))),
-    contentPadding: EdgeInsets.fromLTRB(
-       18,
-        6,
-        8,
-        6),
+    contentPadding: EdgeInsets.fromLTRB(18, 6, 8, 6),
   );
-
-/*
-
-
-//import 'dart:convert';
-import 'dart:convert';
-import 'package:http/http.dart';
-import 'package:flutter/material.dart';
-import 'package:pusher_client/pusher_client.dart';
-
-
-
-class ChatApp extends StatelessWidget {
-  const ChatApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ChatAppState(),
-    );
-  }
-}
-
-class ChatAppState extends StatefulWidget {
-  const ChatAppState({super.key});
-  
-
-  @override
-  State<ChatAppState> createState() => _ChatAppStateState();
-}
-
-class _ChatAppStateState extends State<ChatAppState> {
-  List ChatHistory = [" "];
-  Channel PubChannel = new Channel("name");
-  
-  @override
-  void initState() {
-    _initPusher();
-    super.initState();
-  }
-
-  // Pusher library functionality
-  void _initPusher() async {
-
-    PusherClient thepusher = await PusherClient("accd6364089f3fa5e749",autoConnect: false, PusherOptions(cluster: "mt1"));
-      thepusher.connect();
-      
-    thepusher.onConnectionStateChange((state) {
-      print(state?.currentState);
-    });
-
-    thepusher.onConnectionError((error) {
-      print("error: ${error!.message}");
-    });
-
-    Channel channel = thepusher.subscribe("my-channel");
-    print("subscribed...............");
-    setState(() {
-      PubChannel = channel;
-    });
-
-    channel.bind("my-event", (PusherEvent? event) {
-    print(event!.channelName);
-    print(event!.data);
-      
-    final finaldata = event.data!;
-      setState(() {
-        ChatHistory.add(finaldata);
-      });
-
-  });
-      
-}
-
-Future SendMessage(String message) async {
-
-  final uri = Uri.parse('https://candidate.yewubetsalone.com/api/send-message');
-  final headers = {'Content-Type': 'application/json'};
-  Map<String, dynamic> body = {'message': message};
-  String jsonBody = json.encode(body);
-
-  final encoding = Encoding.getByName('utf-8');
-
-  Response response = await post(
-    uri,
-    headers: headers,
-    body: jsonBody,
-    encoding: encoding,
-  );
-
-}
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Chat Application"),
-      ),
-      body: Column(
-        children: [
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: ChatHistory.length,
-            itemBuilder: ((context, index) {
-              return Text(ChatHistory[index]);
-          })),
-          ElevatedButton(
-            onPressed: () async {
-              SendMessage("Hello from phone");
-            /*
-            send message alternative
-              PubChannel.bind("event-test", (event) {
-                PubChannel.trigger("client-event-test", {"message": "Hello from phone"});
-            });
-            */
-            }, 
-            child: Text("Send Message"))
-        ],
-      ),
-    );
-  }
-  
-
-}
-
-
-
-
-List ChatHistory = [""];
-  PusherClient pusher = PusherClient("appKey", PusherOptions());
-  Channel channel = Channel("name");
-
-    void initState() {
-    super.initState();
-
-
-    pusher = PusherClient(
-      "accd6364089f3fa5e749",
-      PusherOptions(
-        cluster: "mt1"
-      ),
-      enableLogging: true,
-    );
-
-    channel = pusher.subscribe("my-channel");
-
-    pusher.onConnectionStateChange((state) {
-      log("previousState: ${state!.previousState}, currentState: ${state.currentState}");
-    });
-
-    pusher.onConnectionError((error) {
-      log("error: ${error!.message}");
-    });
-
-    channel.bind('my-event', (event) {
-      log(event!.data.toString());
-    });
-
-
-  }
-
-
-*/
